@@ -14,12 +14,14 @@ func main() {
 		fmt.Println("DB Connection Fail")
 		return
 	}
+	defer db.Close()
+
 	err = db.CreateCustomerTable()
 	if err != nil {
 		fmt.Println("Create customer table fail")
 		return
 	}
-	defer db.Close()
+
 	r := setupRouter(db)
 	fmt.Println("Server started")
 	r.Run(":2019")
